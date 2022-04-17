@@ -24,22 +24,13 @@ void setup() {
 void loop() {
     while (Serial.available() > 0) {
       byte outputID = Serial.parseInt();
-//      Serial.print("got ");
-//      Serial.print(outputID);
-//      Serial.print(" resolving to ");
-//      Serial.println(outputs[outputID]);
-//      triggerGate(outputID);
-      blinkLED(
-      analogWrite(outputs[outputID], 255);
-      delay(1);
-      analogWrite(outputs[outputID], 0);
+      triggerGate(outputID);
+      blinkLED(outputID);
   }
    updateLED();
 }
 
 void triggerGate(int outputID) {
-//  Serial.print("pong ");
-//  Serial.println(outputID);
   analogWrite(outputs[outputID], 255);
   delay(1);
   analogWrite(outputs[outputID], 0);
@@ -54,7 +45,7 @@ void blinkLED(int outputID) {
 
 void updateLED() {
   if (blinkState == LOW) {
-    return
+    return;
   }
 
   if(millis() - startBlinkMillis >= blinkMillis) {
